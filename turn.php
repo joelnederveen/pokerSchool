@@ -1,8 +1,20 @@
-<img src="/poker/public/Cards/<?= $data["card1"]?>.jpg" style="width: 175px" alt="image">
-<img src="/poker/public/Cards/<?= $data["card2"]?>.jpg" style="width: 175px" alt="image">
-<img src="/poker/public/Cards/<?= $data["card3"]?>.jpg" style="width: 175px" alt="image">
-<img src="/poker/public/Cards/<?= $data["card4"]?>.jpg" style="width: 175px" alt="image">
-<img src="/poker/public/Cards/TurnedCard.jpg" style="width: 175px" alt="image">
+<?php 
+include("resources/datalayer/card/cardcontroller.php");
+
+$data;
+
+$data = cardstable();
+
+
+
+?>
+
+
+<img src="resources/Cards/<?= $data["card1"]?>.jpg" style="width: 175px" alt="image">
+<img src="resources/Cards/<?= $data["card2"]?>.jpg" style="width: 175px" alt="image">
+<img src="resources/Cards/<?= $data["card3"]?>.jpg" style="width: 175px" alt="image">
+<img src="resources//Cards/<?= $data["card4"]?>.jpg" style="width: 175px" alt="image">
+<img src="resources/Cards/TurnedCard.jpg" style="width: 175px" alt="image">
 <br><br><br><br><br><br>
     
     <li class="d-inline-block"><a href="/pokerSchool/river.php"><i>RIVER</i></a></li>

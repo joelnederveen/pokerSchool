@@ -16,7 +16,7 @@
 	/** @var Table $table */
 	foreach ($table->cards as $card) {
 		?>
-        <img src="/poker/public/<?php echo $card->getImage(); ?>" alt="Kaart">
+        <img src="resources/<?php echo $card->getImage(); ?>" alt="Kaart">
 		<?php
 	}
 
@@ -80,4 +80,4 @@
 </table>
 
 <br><br><br><br><br><br>
-    <li class="d-inline-block"><a href="/pokerSchool/inzetten"><i>INZETTEN</i></a></li>
+    <li class="d-inline-block"><a href="/pokerSchool/inzetten.php"><i>INZETTEN</i></a></li>
