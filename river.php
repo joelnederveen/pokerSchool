@@ -16,4 +16,4 @@ $data = cardstable();
 <img src="resources/Cards/<?= $data["card5"]?>.jpg" style="width: 175px" alt="image">
 
 <br><br><br><br><br><br>
-    <li class="d-inline-block"><a href="/pokerSchool/result.php"><i>RESULT</i></a></li>
+    <li class="d-inline-block"><a href="/pokerSchool/inzetten.php"><i>RESULT</i></a></li>

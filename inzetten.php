@@ -1,11 +1,4 @@
-<?php 
-include("resources/datalayer/card/cardcontroller.php");
 
-shufflingCards();
-
-
-
-?>
 
 <img src="resources/Cards/TurnedCard.jpg" style="width: 175px" alt="image">
 <img src="resources/Cards/TurnedCard.jpg" style="width: 175px" alt="image">

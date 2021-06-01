@@ -77,6 +77,30 @@ Function shufflecards(){
     return $cards;
 }
 
+function playercards($id){
+        
+    // Open de verbinding met de database
+    $conn=createDatabaseConnection();
+
+    // Zet de query klaar door midel van de prepare method. Voeg hierbij een
+    // WHERE clause toe (WHERE id = :id. Deze vullen we later in de code
+    $stmt = $conn->prepare("SELECT * FROM cardsplayers WHERE player = :id ORDER BY id DESC LIMIT 1");
+    // Met bindParam kunnen we een parameter binden. Dit vult de waarde op de plaats in
+    // We vervangen :id in de query voor het id wat de functie binnen is gekomen.
+    $stmt->bindParam(":id", $id);
+
+    // Voer de query uit
+    $stmt->execute();
+
+    // Haal alle resultaten op en maak deze op in een array
+    // In dit geval weten we zeker dat we maar 1 medewerker op halen (de where clause), 
+    //daarom gebruiken we hier de fetch functie.
+    $result = $stmt->fetch();
+    return $result;
+
+
+
+}
 
 function cardstable(){
         
@@ -106,17 +130,17 @@ function cardstable(){
 }
 
 function player($id){
-    $players = array(
-        "1" => 1, "2" => 2, "3" => 3, "4" => 4, "5" => 5, "6" => 6,
-        );
-    if(
-        !isset($players[$id])
-    ){
-        exit("leuk geprobeerd");
-    }
-    
-    $player = $players[$id];
-    $cards = playercards($players[$id]);
+    // $players = array(
+    //     "1" => 1, "2" => 2, "3" => 3, "4" => 4, "5" => 5, "6" => 6,
+    //     );
+    // if(
+    //     !isset($players[$id])
+    // ){
+    //     exit("leuk geprobeerd");
+    // }
+    // echo $id;
+    $player = $id;
+    $cards = playercards($id);
     
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
@@ -127,12 +151,41 @@ function player($id){
     $bet = betAmount($players[$id]);
     $playercards = array("player" => $player,"cards" => $cards, "bet" => $bet);
 
-    render('employee/player', $playercards);
+    return $playercards;
 
-    // $games = getAllGames();
-    // //2. Geef een view weer en geef de variable met medewerkers hieraan mee
-    // render('employee/index', $games);
+    // 
+
 }
+
+
+function betAmount($id){
+
+    
+    // Open de verbinding met de database
+    $conn=createDatabaseConnection();
+
+    // Zet de query klaar door midel van de prepare method. Voeg hierbij een
+    // WHERE clause toe (WHERE id = :id. Deze vullen we later in de code
+    $stmt = $conn->prepare("SELECT bet FROM cardsplayers WHERE player = :id ORDER BY id DESC LIMIT 1");
+    // Met bindParam kunnen we een parameter binden. Dit vult de waarde op de plaats in
+    // We vervangen :id in de query voor het id wat de functie binnen is gekomen.
+    $stmt->bindParam(":id", $id);
+
+    // Voer de query uit
+    $stmt->execute();
+    
+    // Haal alle resultaten op en maak deze op in een array
+    // In dit geval weten we zeker dat we maar 1 medewerker op halen (de where clause), 
+    //daarom gebruiken we hier de fetch functie.
+    $result = $stmt->fetch();
+    
+    return $result['bet'];
+
+    
+
+
+}
+
 function inzetten(){
     $cards = cardstable();
 
@@ -211,7 +264,7 @@ function shufflingCards(){
 }
 
 function raising($bet, $player){
-    $dbConnection = openDatabaseConnection();
+    $dbConnection = createDatabaseConnection();
     $stmt = $dbConnection->prepare("UPDATE cardsplayers SET bet = :bet WHERE player = :player");
     $stmt->bindParam(":player", $player);
     $stmt->bindParam(":bet", $bet);
